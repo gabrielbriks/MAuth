@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./src/database/dev.db"
+}
+
+model User {
+  id             String           @id @default(uuid())
+  name           String
+  email          String
+  password       String
+  UserPermission UserPermission[]
+  UserRoles      UserRoles[]
+
+  @@map("users")
+}
+
+model Permission {
+  id          String @id @default(uuid())
+  name        String
+  description String
+
+  PermissionRole PermissionRole[]
+  UserPermission UserPermission[]
+
+  @@map("permissions")
+}
+
+//Utilizamos a Role para definir o papel de um usuário. No caso ele pode ser um ADMIN por exemplo 
+model Role {
+  id             String           @id @default(uuid())
+  name           String
+  description    String
+  PermissionRole PermissionRole[]
+  UserRoles      UserRoles[]
+
+  @@map("roles")
+}
+
+model PermissionRole {
+  role_id       String
+  permission_id String
+  Permission    Permission? @relation(fields: [permission_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  Role          Role?       @relation(fields: [role_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@id([role_id, permission_id])
+  @@map("permissions_roles")
+}
+
+model UserPermission {
+  user_id       String
+  permission_id String
+
+  User       User?       @relation(fields: [user_id], references: [id])
+  Permission Permission? @relation(fields: [permission_id], references: [id])
+
+  @@id([user_id, permission_id])
+  @@map("users_permissions")
+}
+
+model UserRoles {
+  user_id String
+  role_id String
+
+  User User? @relation(fields: [user_id], references: [id])
+  Role Role? @relation(fields: [role_id], references: [id])
+
+  @@id([user_id, role_id])
+  @@map("users_roles")
+}
+
+model Product {
+  id    String  @id @default(uuid())
+  name  String
+  price Decimal
+
+  @@map("products")
+}
