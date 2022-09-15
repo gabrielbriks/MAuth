@@ -1,5 +1,7 @@
 import { Router } from "express";
+import { CreatePermissionController } from "./controllers/CreatePermissionController";
 import { CreateProductController } from "./controllers/CreateProductController";
+import { CreateRoleController } from "./controllers/CreateRoleController";
 import { CreateUserController } from "./controllers/CreateUserController";
 import { GetAllProductsController } from "./controllers/GetAllProductsController";
 import { SessionController } from "./controllers/SessionController";
@@ -20,6 +22,9 @@ routes.post('/user', new CreateUserController().handle)
 routes.post('/login', new SessionController().handle)
 
 
+routes.post('/role', new CreateRoleController().handle)
+
+routes.post('/permission', new CreatePermissionController().handle)
 
 
 

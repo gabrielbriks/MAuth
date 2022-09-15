@@ -13,7 +13,7 @@ class SessionController {
 
     const result = await sessionService.execute({email, password});
 
-    return response.json(result);
+    return response.json({token: result});
   }
 }
 
