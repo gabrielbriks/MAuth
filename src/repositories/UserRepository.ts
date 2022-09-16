@@ -1,6 +1,64 @@
 import { prisma } from "../lib/prisma";
 
+
+type UserSaveType = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  UserPermission: string[];
+  UserRoles: string[];
+}
  class UserRepository {
+
+  // async createACL(user: UserSaveType){
+
+    async updateUserPermission(user: any, userID: string, permission: { id: string }[], role: { id: string }[]) {
+      try {
+       await prisma.$transaction (
+          permission.map((itemPermission) =>
+            prisma.userPermission.upsert({
+              where: { 
+                user_id_permission_id: {
+                  permission_id: itemPermission.id,
+                  user_id: userID,
+                }
+              },
+              create: { user_id: userID, permission_id: itemPermission.id },
+              update: { },
+            })
+          )
+        );
+
+       await prisma.$transaction (
+          role.map((itemRole) =>
+            prisma.userRoles.upsert({
+              where: { 
+                user_id_role_id: {
+                  role_id: itemRole.id,
+                  user_id: userID
+                  
+                }
+              },
+              create: { user_id: userID, role_id: itemRole.id },
+              update: {},
+            })
+          )
+        );
+
+      
+
+      } catch (error) {
+        throw new Error(error);
+      }
+
+      user.role = role;
+      user.permission = permission;
+
+      return user;
+    }
+
+
   async save(name: string, email: string, password: string){
     const result = await prisma.user.create({
       data: {
@@ -26,6 +84,26 @@ import { prisma } from "../lib/prisma";
     
     return result;
   }
+
+  async findById(userId: string)  {
+    const result = await prisma.user.findFirst({
+      where: {
+        id: userId
+      },
+      // select: {
+      //   id:true,
+      //   email: true,
+      //   name: true,
+      //   UserPermission: true,
+      //   UserRoles: true,
+      // }
+    })
+    .then(data => data)
+    .catch(error => error);
+    
+    return result;
+  }
+
 
  
 }

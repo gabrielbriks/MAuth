@@ -34,6 +34,20 @@ import { prisma } from "../lib/prisma";
     return result;
   }
 
+  
+  async findByIds(rolesIds: string[]) {
+    const result = await prisma.role.findMany({
+      where: {
+        id: {
+          in: rolesIds
+        }
+      }
+    })
+    .then(data => data)
+    .catch(error => error);
+    
+    return result;
+  }
  
 }
 export { RoleRepository };

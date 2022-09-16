@@ -33,6 +33,21 @@ class PermissionRepository {
     
     return result;
   }
+
+  async findByIds(permissionsIds: string[]) {
+    const result = await prisma.permission.findMany({
+      where: {
+        id: {
+          in: permissionsIds
+        }
+      }
+    })
+    .then(data => data)
+    .catch(error => error);
+    
+    return result;
+  }
 }
 
 export { PermissionRepository };
+
