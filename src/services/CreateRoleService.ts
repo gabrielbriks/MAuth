@@ -12,7 +12,7 @@ class CreateRoleService {
 
     const repo = new RoleRepository();
 
-    if(await repo.findOne(name)){
+    if(await repo.findOneByName(name)){
       return new Error('Role alredy exist');
     }
 

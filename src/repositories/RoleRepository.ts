@@ -14,7 +14,41 @@ import { prisma } from "../lib/prisma";
     return result;
   }
 
-  async findOne(name: string) {
+  async createRolePermission(roleId: string, permissions: {id: string}[] ) {
+   try {
+      let result = prisma.$transaction(
+        permissions.map(item => 
+          prisma.permissionRole.upsert({
+            select: {
+              Role: true,
+              Permission: true
+            },
+            where: {
+              role_id_permission_id: {
+                role_id: roleId,
+                permission_id: item.id
+                
+              }
+            },
+            update: {},
+            create: {
+              permission_id: item.id,
+              role_id: roleId
+            }
+
+          })  
+        )
+      ).then(data => data);
+
+      return result;
+
+   } catch (errors) {
+    throw new Error(errors);
+   }
+
+  }
+
+  async findOneByName(name: string) {
     const result = await prisma.role.findFirst({
       where: {
         name
@@ -25,6 +59,8 @@ import { prisma } from "../lib/prisma";
     
     return result;
   }
+
+ 
 
   async listAll() {
     const result = await prisma.role.findMany()
@@ -41,6 +77,18 @@ import { prisma } from "../lib/prisma";
         id: {
           in: rolesIds
         }
+      }
+    })
+    .then(data => data)
+    .catch(error => error);
+    
+    return result;
+  }
+
+  async findOneById(roleId: string) {
+    const result = await prisma.role.findFirst({
+      where: {
+        id: roleId
       }
     })
     .then(data => data)
