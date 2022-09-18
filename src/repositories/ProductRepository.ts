@@ -15,7 +15,7 @@ import { prisma } from "../lib/prisma";
   }
 
   async listAll(){
-    const result = await prisma.product.findMany()
+    const result = await prisma.product.findMany({})
     .then(data => data)
     .catch(error => error);
 

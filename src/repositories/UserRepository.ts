@@ -49,7 +49,7 @@ type UserSaveType = {
       
 
       } catch (error) {
-        throw new Error(error);
+        throw new Error(`${error}`);
       }
 
       user.role = role;
@@ -85,18 +85,61 @@ type UserSaveType = {
     return result;
   }
 
+  //Retorna os dados do usuário
+  async findOne(userId: string)  {
+    const result = await prisma.user.findFirst({
+      where: {
+        id: userId
+      },
+      
+    })
+    .then(data => data)
+    .catch(error => error);
+    
+    return result;
+  }
+
+  ///Retorna dados do usuário e suas Roles e Permissions
   async findById(userId: string)  {
     const result = await prisma.user.findFirst({
       where: {
         id: userId
       },
-      // select: {
-      //   id:true,
-      //   email: true,
-      //   name: true,
-      //   UserPermission: true,
-      //   UserRoles: true,
-      // }
+      include: {
+        UserPermission: {
+          select: {
+            Permission: {
+              select:{
+                id:true,
+                name: true,
+                description: true
+              }
+            }
+          }
+        },
+        UserRoles: {
+          select:{
+            Role:{
+              select: {
+                id:true,
+                name:true,
+                description: true,
+                PermissionRole: {
+                  select: {
+                    Permission: {
+                      select: {
+                        id: true,
+                        name: true,
+                        description: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },        
+      }
     })
     .then(data => data)
     .catch(error => error);

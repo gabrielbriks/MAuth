@@ -5,12 +5,13 @@ import { UserRepository } from "../repositories/UserRepository";
 
 type UserACLRequestType = {
   userId: string;
-  roles: string[];
   permissions:string[];
+  roles: string[];
+  
 }
 
 class CreateUserAccessControlListService {
-  async execute({userId, permissions, roles}): Promise<User | Error> {
+  async execute({userId, permissions, roles}: UserACLRequestType): Promise<User | Error> {
     
     const repoUser = new UserRepository();
 
@@ -29,9 +30,7 @@ class CreateUserAccessControlListService {
 
     const rolesExists = await repoRoles.findByIds(roles);
 
-    // user.UserPermissions = permissionsExists;
-    // user.UserRoles = rolesExists;
-
+    
     const result = await repoUser.updateUserPermission(user,userId, permissionsExists, rolesExists);
     return result;
   }

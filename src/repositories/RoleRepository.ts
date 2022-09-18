@@ -42,8 +42,8 @@ import { prisma } from "../lib/prisma";
 
       return result;
 
-   } catch (errors) {
-    throw new Error(errors);
+   } catch (error) {
+    throw new Error(`${error}`);
    }
 
   }
