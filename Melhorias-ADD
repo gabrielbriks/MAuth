@@ -2,3 +2,10 @@
 - É mais questão de discernir o que é:
     - 401/não autenticado/msg do servidor/tente novamente
     - 403/não permitido/msg do app/sei quem é você, mas você não pode dentro do contexto de controle de acesso.
+
+
+# Tecnologias Utilizadas
+- NodeJS
+- Express
+- Typescript
+- Prisma ORM
