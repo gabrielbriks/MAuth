@@ -1,1 +1,0 @@
-{"version":3,"file":"GetAllProductsService.js","sourceRoot":"","sources":["../../src/services/GetAllProductsService.ts"],"names":[],"mappings":";;;AAAA,yEAAsE;AAEtE,MAAM,qBAAqB;IACzB,KAAK,CAAC,OAAO;QAEX,MAAM,iBAAiB,GAAG,IAAI,qCAAiB,EAAE,CAAC;QAElD,MAAM,MAAM,GAAG,MAAM,iBAAiB,CAAC,OAAO,EAAE,CAAC;QAEjD,OAAO,MAAM,CAAC;IAChB,CAAC;CACF;AAEQ,sDAAqB"}

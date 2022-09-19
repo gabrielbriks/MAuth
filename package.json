@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules ./src/server.ts",
-    "prod": "tsc && node ./dist",
-    "postinstall": "tsc "
+    "prod": "tsc && node ./dist/server.js",
+    "postinstall": "tsc"
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",
