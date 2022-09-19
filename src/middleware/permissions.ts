@@ -1,4 +1,3 @@
-import { Permission } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { UserRepository } from "../repositories/UserRepository";
 
@@ -9,7 +8,11 @@ type UserCustomType = {
   password: string;
   UserPermission: [
     {
-      Permission: Permission
+      Permission: {
+        id: string;
+        name: string;
+        description: string;
+    }
     }
   ],
   UserRoles: [
@@ -20,7 +23,11 @@ type UserCustomType = {
         description: string,
         PermissionRole: [
           {
-            Permission: Permission
+            Permission:{
+              id: string;
+              name: string;
+              description: string;
+          }
           }
         ]
       }
