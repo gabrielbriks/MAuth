@@ -1,0 +1,4 @@
+# Mudar o status 401 para 403
+- É mais questão de discernir o que é:
+    - 401/não autenticado/msg do servidor/tente novamente
+    - 403/não permitido/msg do app/sei quem é você, mas você não pode dentro do contexto de controle de acesso.
