@@ -9,9 +9,6 @@
     "start": "npx prisma generate && prisma migrate deploy && node ./dist/server.js",
     "postinstall": "npx prisma generate && prisma migrate deploy && tsc && node ./dist/server.js "
   },
-  "prisma": {
-    "schema": "prisma/schema.prisma"
-  },
   "dependencies": {
     "@prisma/client": "^4.3.1",
     "express": "^4.18.1",
