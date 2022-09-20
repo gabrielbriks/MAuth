@@ -67,8 +67,8 @@ type UserSaveType = {
         password
       }
     })
-    .then(data =>  data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
 
     return result;
   }
@@ -79,8 +79,8 @@ type UserSaveType = {
         email
       },
     })
-    .then(data => data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
     
     return result;
   }
@@ -93,8 +93,8 @@ type UserSaveType = {
       },
       
     })
-    .then(data => data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
     
     return result;
   }
@@ -141,8 +141,8 @@ type UserSaveType = {
         },        
       }
     })
-    .then(data => data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
     
     return result;
   }

@@ -8,8 +8,8 @@ class PermissionRepository {
         description,
       }
     })
-    .then(data =>  data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
 
     return result;
   }
@@ -20,16 +20,16 @@ class PermissionRepository {
         name
       }
     })
-    .then(data => data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
     
     return result;
   }
 
   async listAll() {
     const result = await prisma.permission.findMany()
-    .then(data => data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
     
     return result;
   }
@@ -42,8 +42,8 @@ class PermissionRepository {
         }
       }
     })
-    .then(data => data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
     
     return result;
   }

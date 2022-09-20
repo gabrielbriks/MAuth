@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import { prisma } from "../lib/prisma";
 
  class RoleRepository {
@@ -8,8 +9,8 @@ import { prisma } from "../lib/prisma";
         description,
       }
     })
-    .then(data =>  data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
 
     return result;
   }
@@ -55,7 +56,7 @@ import { prisma } from "../lib/prisma";
       }
     })
     .then(data => data)
-    .catch(error => error);
+    .catch((error: any) => error);
     
     return result;
   }
@@ -64,8 +65,8 @@ import { prisma } from "../lib/prisma";
 
   async listAll() {
     const result = await prisma.role.findMany()
-    .then(data => data)
-    .catch(error => error);
+    .then((data: Role[]) => data)
+    .catch((error: any) => error);
     
     return result;
   }
@@ -79,8 +80,8 @@ import { prisma } from "../lib/prisma";
         }
       }
     })
-    .then(data => data)
-    .catch(error => error);
+    .then((data: Role[]) => data)
+    .catch((error: any) => error);
     
     return result;
   }
@@ -91,8 +92,8 @@ import { prisma } from "../lib/prisma";
         id: roleId
       }
     })
-    .then(data => data)
-    .catch(error => error);
+    .then((data: Role | null) => data)
+    .catch((error: any) => error);
     
     return result;
   }

@@ -8,16 +8,16 @@ import { prisma } from "../lib/prisma";
         price
       }
     })
-    .then(data =>  data)
-    .catch(error => error);
-
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
+    
     return result;
   }
 
   async listAll(){
     const result = await prisma.product.findMany({})
-    .then(data => data)
-    .catch(error => error);
+    .then((data: any) =>  data)
+    .catch((error: any) => error);
 
     return result;
   }
