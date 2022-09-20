@@ -1,0 +1,35 @@
+# Mudar o status 401 para 403
+- É mais questão de discernir o que é:
+    - 401/não autenticado/msg do servidor/tente novamente
+    - 403/não permitido/msg do app/sei quem é você, mas você não pode dentro do contexto de controle de acesso.
+
+
+# Solução dos erros durante deploy na Heroku e Digital Ocean Apps
+
+- Durante as tentativas de realizar o Deploy nessas plataformas, mem deparei com alguns erros com o prisma,
+com o build e com o estagio de implantação na Digital Ocean Apps.
+
+- Depois de bastante tempo quebrando a cabeça, somente no "Railway.app" que funcionou o Deploy. E depois de mais algum tempo
+compreendi que o erro estava na forma e nas ordens que eram executados os scripts de build e start da aplicação durante o deploy.
+
+- Quando se está utilizando o prisma, é necessário executar um "prisma generate", para que no momento de realizar o build da aplicação
+as tipagens do prisma utilizadas no projeto seja encontradas, caso ao contrário não sera, pois não existirão.
+
+Então foi necessário fazer um ajuste nos scripts do package.json:
+
+- Necessário utilziar o script {"postinstall": "npx prisma generate && prisma migrate deploy"}
+    - Esse script sempre sera executado após a instalação das dependencias do projeto durante o processo de Deploy. Como o próprio nome já diz
+    "pós instalação"
+- Também sera necessários ajustar o script de build {"build": " tsc "}
+- E por fim aqui nos scripts, será necessários ajustar o script de start {"start": "node dist/server.js"}
+
+- Já no arquivo "Procfile" que também é utilizado na Digital Ocean Apps, só será necessários manter o seguinte script {"web: node dist/server.js"} (sem aspas).
+
+# Consfigurações na Digital Ocean Apps
+- Aqui precisaremos definir dois scripts, que vai resolver os erros que estavam dando durante o processo de implantação, mesmo após ter tido um build de sucesso.
+    - Run Command : "yarn build && yarn start"
+
+    Existendo esses script lá não haverá mais problemas ao realizar os deploys.
+
+
+Seguindo esses passos será possíve realizar os deploys tanto na Digital Ocean Apps, quanto no Heroku sem nenhum problema.
