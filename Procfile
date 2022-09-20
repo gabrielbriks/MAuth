@@ -1,1 +1,1 @@
-start: prisma generate && prisma migrate deploy && tsc
+web: npx prisma generate && prisma migrate deploy && tsc && node ./dist/server.js
